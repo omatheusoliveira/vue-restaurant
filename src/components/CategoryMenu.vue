@@ -48,6 +48,7 @@ export default {
   methods: {
     onCategoryClick(id) {
       this.selectedCategory = id;
+      this.$store.dispatch('changeCategory', id);
     },
     isActive(id) {
       return this.selectedCategory === id;
