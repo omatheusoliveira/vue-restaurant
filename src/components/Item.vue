@@ -2,7 +2,7 @@
   <div class="item">
     <div class="container">
       <div class="item--tag" v-if="item.offer">Oferta</div>
-      <img class="item--img" src="../assets/images/burguer.png" alt="" />
+      <img class="item--img" :src="imagePath" alt="" />
     </div>
     <div class="content">
       <h2 class="item--name">{{ item.name }}</h2>
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: "ItemBurguer",
+  name: "ItemMenu",
   filters: {
     currency(value) {
       return `R$ ${value.toLocaleString("pt-br", {
@@ -25,6 +25,14 @@ export default {
   props: {
     item: {},
   },
+  computed: {
+    selectedCategory() {
+      return this.$store.state.selectedCategory;
+    },
+    imagePath() {
+      return require(`../assets/images/${this.selectedCategory}/${this.item.id}.png`)
+    }
+  }
 };
 </script>
 
@@ -37,6 +45,8 @@ export default {
   position: relative;
   margin: 20px;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
   &--tag {
     position: absolute;
     background: @pink;
@@ -50,12 +60,13 @@ export default {
   }
   &--img {
     display: block;
-    margin: 20px auto 0px;
+    margin: auto;
+    width: 100%;
   }
   &--name {
     font-weight: 600;
     font-size: 18px;
-    margin: 8px auto;
+    margin: 0;
   }
   &--description {
     color: @dark-grey;
@@ -67,7 +78,14 @@ export default {
     font-weight: 600;
     font-size: 18px;
     color: @yellow;
-    margin: 8px auto;
+    margin: 0;
+  }
+  .content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 10px;
   }
 
   @media @tablets {
@@ -75,19 +93,20 @@ export default {
     height: fit-content;
     border: 1px solid @light-grey;
     display: flex;
+    flex-direction: row;
     margin: 10px 0;
-    padding: 5px 10px;
+    padding: 10px 20px;
 
 
     &--img{
-      height: 60px;
+      width: 86px;
       order: 0;
       margin: 0 0 10px 0;
     }
 
     &--price{
       text-align: right;
-      margin: 0 auto;
+      margin: 5px 0 0 auto;
     }
 
     &--tag{
@@ -102,6 +121,10 @@ export default {
       align-items: center;
       justify-content: center;
       margin-right: 10px;
+    }
+
+    .content{
+      flex-grow: 1;
     }
   }
 }

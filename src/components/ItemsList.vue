@@ -1,18 +1,18 @@
 <template>
   <div class="items-list">
     <LoadingAnimation v-if="isLoading" />
-    <ItemBurguer v-for="item in itemsList" :key="item.id" :item="item" />
+    <ItemMenu v-for="item in itemsList" :key="item.id" :item="item" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import ItemBurguer from "./Item";
+import ItemMenu from "./Item";
 import LoadingAnimation from "./LoadingAnimation";
 export default {
   name: "ItemsList",
   components: {
-    ItemBurguer,
+    ItemMenu,
     LoadingAnimation,
   },
   data() {
@@ -24,10 +24,8 @@ export default {
   created() {},
 
   computed: {
-    selectedCategory: {
-      get() {
-        return this.$store.state.selectedCategory;
-      },
+    selectedCategory() {
+      return this.$store.state.selectedCategory;
     },
   },
 
@@ -42,7 +40,7 @@ export default {
             this.itemsList = response.data;
             this.isLoading = false;
           });
-      }, 1500);
+      }, 500);
     },
   },
 
@@ -62,7 +60,8 @@ export default {
 
   @media @tablets {
     flex-wrap: wrap;
-    margin: 20px;
+    margin: 0;
+    padding: 20px;
   }
 }
 </style>
