@@ -21,7 +21,9 @@ export default {
       isLoading: false,
     };
   },
-  created() {},
+  created() {
+    this.getItemList();
+  },
 
   computed: {
     selectedCategory() {

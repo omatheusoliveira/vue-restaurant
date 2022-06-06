@@ -1,9 +1,9 @@
 <template>
   <div class="item">
     <div class="item--quantity">
-      <span class="buttons" @click="decreaseQuantity(item.id)">-</span>
+      <button class="buttons" @click="decreaseQuantity(item.id)" :disabled="item.quantity == 0">-</button>
       <span class="number">{{ item.quantity }}</span>
-      <span class="buttons" @click="increaseQuantity(item.id)">+</span>
+      <button class="buttons" @click="increaseQuantity(item.id)">+</button>
     </div>
     <div class="item--img-container">
       <img class="item--img" :src="imagePath" />
@@ -68,6 +68,12 @@ export default {
       font-size: 18px;
       font-weight: 600;
       cursor: pointer;
+      background: none;
+      border: 0;
+
+      &button:focus{
+        outline: none;
+      }
     }
   }
 
@@ -104,6 +110,32 @@ export default {
     font-size: 18px;
     line-height: 27px;
     color: @yellow;
+  }
+
+  @media @tablets{
+    flex-wrap: wrap;
+
+    &--img-container{
+      order: 1;
+    }
+
+    .content{
+      order: 2;
+    }
+
+    &--quantity{
+      order: 3;
+      padding: 0;
+      width: 81px;
+      justify-content: center;
+    }
+
+    &--price{
+      order: 4;
+      padding: 0 20px;
+      margin: 5px 0;
+    }
+
   }
 }
 </style>
